@@ -31,7 +31,7 @@ function search(event) {
     let h6 = document.querySelector("#country");
     searchInput.innerHTML = `${h6.value}`;
     let apiKey = "efc329b30b94f49696e6890973ad5897";
-    let url = let url = `https://api.openweathermap.org/data/2.5/weather?q=${h6.value}&appid=${apiKey}&units=metric`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${h6.value}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showTemp);
 }
 let form = document.querySelector("form");
