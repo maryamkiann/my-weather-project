@@ -14,24 +14,17 @@ h4.innerHTML = `${hours}:${minutes} ${day}`;
 
 
 function showTemp(response) {
-    let temperature = Math.round(response.data.main.temp);
-    let changeTemp = document.querySelector("#temp");
-    changeTemp.innerHTML = `${temperature}`;
-    let weatherDescription = response.data.weather[0].description;
-    let updatedDescription = document.querySelector("#headingFive");
-    updatedDescription.innerHTML = `${weatherDescription}`;
-    let city = document.querySelector("#country");
-    let changedCity = response.data.name;
-    city.innerHTML = `${changedCity}`;
+    document.querySelector("#country").innerHTML = response.data.name;
+    console.log(response);
+    document.querySelector("#temp").innerHTML = Math.round(response.data.main.temp);
+    document.querySelector("#weatherCondition").innerHTML = response.data.weather[0].main;
 }
 
 function search(event) {
     event.preventDefault();
-    let searchInput = document.querySelector("#search-text-input");
-    let h6 = document.querySelector("#country");
-    searchInput.innerHTML = `${h6.value}`;
     let apiKey = "efc329b30b94f49696e6890973ad5897";
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${h6.value}&appid=${apiKey}&units=metric`;
+    let city = document.querySelector("#search-text-input").value;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showTemp);
 }
 let form = document.querySelector("form");
