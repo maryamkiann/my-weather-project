@@ -20,16 +20,17 @@ h5 {
   padding: 15px;
   background-color: black;
 }
-.sun-icon {
+.icon {
   color: #ffff;
   position: relative;
   margin-left: -290px;
   margin-top: -109px;
-  font-size: 200px;
-  transition: all 200ms ease-in-out;
+  width: 200px;
+  height: 200px;
+  transition: transform .2s;
 }
-.sun-icon:hover {
-  color: yellow;
+.icon:hover{
+  transform: scale(1.5);
 }
 .container {
   display: block;

@@ -14,10 +14,13 @@ h4.innerHTML = `${hours}:${minutes} ${day}`;
 
 
 function showTemp(response) {
+    let emojiElement = document.querySelector("#emoji");
     document.querySelector("#country").innerHTML = response.data.name;
     console.log(response);
     document.querySelector("#temp").innerHTML = Math.round(response.data.main.temp);
-    document.querySelector("#weatherCondition").innerHTML = response.data.weather[0].main;
+    document.querySelector("#weatherCondition").innerHTML = response.data.weather[0].description;
+    emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
 }
 
 function search(event) {
