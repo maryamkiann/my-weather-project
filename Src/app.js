@@ -37,6 +37,14 @@ function displayForecast() {
     forecastHTML.innerHTML = forecastHTML;
 
 }
+function buttonToday(event) {
+    event.preventDefault();
+    let todayButton = document.querySelector("#")
+    displayForecast();
+}
+
+let forecastButton = document.querySelector("#todayBut");
+forecastButton.addEventListener("click", buttonToday);
 
 function showTemp(response) {
     let emojiElement = document.querySelector("#emoji");
@@ -47,19 +55,23 @@ function showTemp(response) {
     emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 
 }
-
-function search(event) {
-    event.preventDefault();
+function search(city) {
     let apiKey = "efc329b30b94f49696e6890973ad5897";
-    let city = document.querySelector("#search-text-input").value;
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showTemp);
 }
-let form = document.querySelector("form");
-form.addEventListener("submit", search);
+function handleSubmit(event) {
+    event.preventDefault();
+    let city = document.querySelector("#search-text-input");
+    search(city.value);
+}
 
-let forecastButton = document.querySelector("#todayButton");
-forecastButton.addEventListener("click", displayForecast);
+search("Paris");
+
+let form = document.querySelector("form");
+form.addEventListener("submit", handleSubmit);
+
+
 
 
 
