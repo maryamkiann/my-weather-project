@@ -41,9 +41,7 @@
             <h6 id="country"></h6>
 
 
-            <form>
-                <input type="button" value="Today" class="btn btn-danger" id="todayBut">
-            </form>
+
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-danger" id="todayButton"> Today </button>
                 <button type="button" class="btn btn-danger"> Tomorrow </button>
@@ -51,12 +49,22 @@
             </div>
 
             <div class="weather-forecast" id="forecast">
+                <div class="col-2">
+                    <div class="weather-forecast-date"> ${day} </div>
+                    <img src="https://d2erwcr27wae6d.cloudfront.net/resources/v1/resource/IconByCodeV1?iconset=forecast&iconSize=svglarge&iconCode=26&token=be390ba7-63a9-4068-a4ba-5f0d784169ea"
+                        alt="" width="42" />
+
+                    <div class="temperatures">
+                        <span class="weather-forecat-temperature-max"> 20°</span>
+                        <span class="weather-forecast-temperature-min"> 10°</span>
+                    </div>
+
+                </div>
             </div>
+
+
         </div>
-
-
-    </div>
-    <script src="Src\app.js"></script>
+        <script src="Src\app.js"></script>
 </body>
 
 </html>
