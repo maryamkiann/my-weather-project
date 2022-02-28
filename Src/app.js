@@ -14,9 +14,11 @@ h4.innerHTML = `${hours}:${minutes} ${day}`;
 
 function showTemp(response) {
     let emojiElement = document.querySelector("#emoji");
+
+    celsiusTemp = response.data.main.temp;
+
     document.querySelector("#country").innerHTML = response.data.name;
-    console.log(response);
-    document.querySelector("#temp").innerHTML = Math.round(response.data.main.temp);
+    document.querySelector("#temp").innerHTML = Math.round(celsiusTemp);
     document.querySelector("#weatherCondition").innerHTML = response.data.weather[0].description;
     emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 
@@ -34,12 +36,28 @@ function handleSubmit(event) {
     search(cityElementInput.value);
 }
 
-search("New York");
+function celsiusTemperature(event) {
+    event.preventDefault();
+    let temperatureElement = document.querySelector("#temp");
+    temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
+function farenhietTemperature(event) {
+    event.preventDefault();
 
+    let farenhietTemperature = (celsiusTemp * 9) / 5 + 32;
+    let temperatureElement = document.querySelector("#temp");
+    temperatureElement.innerHTML = Math.round(farenhietTemperature);
+}
+
+let celsiusTemp = null;
 let form = document.querySelector("form");
 form.addEventListener("submit", handleSubmit);
 
+let celsius = document.querySelector("#celsius-link");
+celsius.addEventListener("click", celsiusTemperature);
 
+let farenhiet = document.querySelector("#farenhiet-link");
+farenhiet.addEventListener("click", farenhietTemperature);
 
-
+search("New York");
 
