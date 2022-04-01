@@ -12,6 +12,13 @@ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 let day = days[now.getDay()];
 h4.innerHTML = `${hours}:${minutes} ${day}`;
 
+function formatDya(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return days[day];
+}
+
 function getForecast(coordinates) {
     let apiKey = "efc329b30b94f49696e6890973ad5897";
     let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -23,18 +30,21 @@ function displayForecast(response) {
     let forecastElement = document.querySelector("#forecast");
     let forecastHtml = `<div class="row">`;
 
-    days.forEach(function (forecastDay) {
-        forecastHtml = forecastHtml + `
+    days.forEach(function (forecastDay, index) {
+        if (index < 6) {
+            forecastHtml = forecastHtml + `
         <div class="col-2">
-         <div class="weather-forecast-date"> ${forecastDay.dt} </div>
+         <div class="weather-forecast-date"> ${formatDay(forecastDay.dt)} </div>
          <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
             alt="" width="42" />
 
          <div class="temperatures">
-            <span class="weather-forecat-temperature-max"> ${forecastDay.temp.max}°</span>
-            <span class="weather-forecast-temperature-min"> ${forecastDay.temp.min}°</span>
+            <span class="weather-forecat-temperature-max"> ${Math.round(forecastDay.temp.max)}°</span>
+            <span class="weather-forecast-temperature-min"> ${Math.round(forecastDay.temp.min)}°</span>
          </div>
-        </div>` });
+        </div>`;
+        }
+    });
 
     forecastHtml = forecastHtml + `</div>`;
     forecastElement.innerHTML = forecastHtml;
@@ -64,29 +74,7 @@ function handleSubmit(event) {
     let cityElementInput = document.querySelector("#search-text-input");
     search(cityElementInput.value);
 }
-
-function celsiusTemperature(event) {
-    event.preventDefault();
-    let temperatureElement = document.querySelector("#temp");
-    temperatureElement.innerHTML = Math.round(celsiusTemp);
-}
-function farenhietTemperature(event) {
-    event.preventDefault();
-
-    let farenhietTemperature = (celsiusTemp * 9) / 5 + 32;
-    let temperatureElement = document.querySelector("#temp");
-    temperatureElement.innerHTML = Math.round(farenhietTemperature);
-}
-
-let celsiusTemp = null;
 let form = document.querySelector("form");
 form.addEventListener("submit", handleSubmit);
-
-let celsius = document.querySelector("#celsius-link");
-celsius.addEventListener("click", celsiusTemperature);
-
-let farenhiet = document.querySelector("#farenhiet-link");
-farenhiet.addEventListener("click", farenhietTemperature);
-
 search("New York");
 
