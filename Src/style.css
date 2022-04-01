@@ -50,7 +50,7 @@ h5 {
   text-align: center;
   display: block;
 }
-.celsius-link {
+.units {
   color: red;
   position: relative;
   top: -50px;
@@ -59,21 +59,6 @@ h5 {
   cursor: default;
 
 }
-.celsius-link:hover {
-  color: aliceblue;
-}
-.farenhiet-link{
-  color: red;
-  position: relative;
-  top: -50px;
-  font-size: 25px;
-  text-decoration: none;
-  cursor: default;
-}
-.farenhiet-link:hover{
-  color: aliceblue;
-}
-
 .weather-forecast{
   text-align: center;
   margin-top: 20px;
