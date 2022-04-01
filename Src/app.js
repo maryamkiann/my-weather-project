@@ -12,25 +12,29 @@ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 let day = days[now.getDay()];
 h4.innerHTML = `${hours}:${minutes} ${day}`;
 
+function getForecast(coordinates) {
+    let apiKey = "efc329b30b94f49696e6890973ad5897";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);
+}
 
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response.data.daily);
     let forecastElement = document.querySelector("#forecast");
     let forecastHtml = `<div class="row">`;
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-    days.forEach(function (day) {
+
+    days.forEach(function (forecastDay) {
         forecastHtml = forecastHtml + `
-    <div class="col-2">
-        <div class="weather-forecast-date"> ${day} </div>
-        <img src="https://d2erwcr27wae6d.cloudfront.net/resources/v1/resource/IconByCodeV1?iconset=forecast&iconSize=svglarge&iconCode=26&token=be390ba7-63a9-4068-a4ba-5f0d784169ea"
+        <div class="col-2">
+         <div class="weather-forecast-date"> ${forecastDay.dt} </div>
+         <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
             alt="" width="42" />
 
-        <div class="temperatures">
-            <span class="weather-forecat-temperature-max"> 20°</span>
-            <span class="weather-forecast-temperature-min"> 10°</span>
-        </div>
-
-    </div>`;
-    });
+         <div class="temperatures">
+            <span class="weather-forecat-temperature-max"> ${forecastDay.temp.max}°</span>
+            <span class="weather-forecast-temperature-min"> ${forecastDay.temp.min}°</span>
+         </div>
+        </div>` });
 
     forecastHtml = forecastHtml + `</div>`;
     forecastElement.innerHTML = forecastHtml;
@@ -45,6 +49,7 @@ function showTemp(response) {
     document.querySelector("#temp").innerHTML = Math.round(celsiusTemp);
     document.querySelector("#weatherCondition").innerHTML = response.data.weather[0].description;
     emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+    getForecast(response.data.coord);
 
 }
 
@@ -84,5 +89,4 @@ let farenhiet = document.querySelector("#farenhiet-link");
 farenhiet.addEventListener("click", farenhietTemperature);
 
 search("New York");
-displayForecast();
 
